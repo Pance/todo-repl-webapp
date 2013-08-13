@@ -4,6 +4,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.5"]
                  [hiccup "1.0.4"]]
+  :uberjar-name "todo-repl-webapp-standalone.jar"
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler todo-repl-webapp.handler/app}
   :profiles
