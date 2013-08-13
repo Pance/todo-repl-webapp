@@ -2,5 +2,8 @@
   :description "Todo-repl"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [noir "1.3.0-beta3"]]
-  :main todo-repl-webapp.server)
+                 [compojure "1.1.5"]]
+  :plugins [[lein-ring "0.8.5"]]
+  :ring {:handler todo-repl-webapp.handler/app}
+  :profiles
+  {:dev {:dependencies [[ring-mock "0.1.5"]]}})
