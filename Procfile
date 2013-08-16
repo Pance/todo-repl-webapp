@@ -1,1 +1,1 @@
-web: java $JVM_OPTS -cp target/todo-repl-webapp-standalone.jar clojure.main -m todo-repl-webapp.handler/app $PORT
+web: java $JVM_OPTS -cp target/todo-repl-webapp-standalone.jar clojure.main -m todo-repl-webapp.handler/main $PORT
