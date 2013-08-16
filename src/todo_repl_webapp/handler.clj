@@ -3,7 +3,8 @@
         hiccup.core)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [hiccup.form :as form]))
+            [hiccup.form :as form]
+            [ring.adapter.jetty :as jetty]))
 
 (defn home-page [& x]
   (html [:head [:title "todo-repl"]]
@@ -23,3 +24,6 @@
 
 (def app
   (handler/site app-routes))
+
+(defn -main [port]
+  (jetty/run-jetty app-routes {:port (Integer. port) :join? false}))
