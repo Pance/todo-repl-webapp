@@ -1,24 +1,18 @@
 # todo-repl-webapp
 
 A web application that provides a repl that lets you manage todos.
-
-## Installation
-
-Download from http://example.com/FIXME.
+The app can be seen at: http://protected-mesa-6456.herokuapp.com/
 
 ## Usage
 
-FIXME: explanation
+Install [Leiningen](https://github.com/technomancy/leiningen)
+```
+git clone git@github.com:Pance/todo-repl-webapp.git
+cd todo-repl-webapp
+lein run 8000
+```
 
-    $ java -jar todo-repl-webapp-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
+Point your browser at: http://todo-repl.core
 
 ### Bugs
 
