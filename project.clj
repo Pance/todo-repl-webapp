@@ -6,6 +6,7 @@
                  [hiccup "1.0.4"]
                  [ring/ring-jetty-adapter "1.1.6"]]
   :uberjar-name "todo-repl-webapp-standalone.jar"
+  :main todo-repl-webapp.handler
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler todo-repl-webapp.handler/app}
   :profiles
