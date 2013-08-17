@@ -1,4 +1,5 @@
 (ns todo-repl-webapp.handler
+  (:gen-class :main true)
   (:use compojure.core
         hiccup.core)
   (:require [compojure.handler :as handler]
