@@ -12,7 +12,7 @@ cd todo-repl-webapp
 lein run 8000
 ```
 
-Point your browser at: http://todo-repl.core
+Point your browser at: http://localhost:8000
 
 ### Bugs
 
