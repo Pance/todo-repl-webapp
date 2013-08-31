@@ -10,16 +10,17 @@
 (defn home-page [& x]
   (html [:head [:title "todo-repl"]]
         [:body [:h1 "todo-repl"]
-               (form/form-to [:put "/eval"]
-                        (form/text-area [] "blah")
+               (form/form-to [:post "/eval"]
+                        (form/text-area "evalInput" "blah")
                         [:br]
                         (form/submit-button "eval"))]))
 (defn eval-page [& x]
-  (html [:h1 x]))
+  (html [:h1 "Eval"]
+        [:h2 (first x)]))
 
 (defroutes app-routes
   (GET "/" [] (home-page))
-  (PUT "/eval/:x" [x] (eval-page x))
+  (POST "/eval" [evalInput] (eval-page evalInput))
   (route/resources "/")
   (route/not-found "Not Found"))
 
