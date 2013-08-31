@@ -13,17 +13,3 @@ lein run 8000
 ```
 
 Point your browser at: http://localhost:8000
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
