@@ -5,18 +5,31 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [hiccup.form :as form]
+            [hiccup.page :as page]
             [ring.adapter.jetty :as jetty]))
 
-(defn home-page [& x]
-  (html [:head [:title "todo-repl"]]
-        [:body [:h1 "todo-repl"]
-               (form/form-to [:post "/eval"]
-                        (form/text-area "evalInput" "blah")
-                        [:br]
-                        (form/submit-button "eval"))]))
-(defn eval-page [& x]
+(defn home-page [& _]
+  (html [:head 
+          [:title "todo-repl"]
+          (page/include-css "css/bootstrap.min.css")
+          (page/include-js "http://code.jquery.com/jquery-1.10.1.min.js"
+                           "js/boostrap.min.js"
+                           "js/eval.js")]
+        [:body 
+          [:div.col-md-7.col-md-offset-2
+            [:h1 "todo-repl"]
+            (form/form-to {:id "todoForm"}
+                          [:post "/eval"]
+                          (form/text-area {:class "form-control"}
+                                          "evalInput" 
+                                          "blah")
+                          [:br]
+                          (form/submit-button {:id "todoSubmitButton"}
+                                              "Eval"))]
+          [:div#display.col-md-7.col-md-offset-2]]))
+(defn eval-page [x & xs]
   (html [:h1 "Eval"]
-        [:h2 (first x)]))
+        [:h2 x]))
 
 (defroutes app-routes
   (GET "/" [] (home-page))
