@@ -13,8 +13,7 @@
           [:title "todo-repl"]
           (page/include-css "css/bootstrap.min.css")
           (page/include-js "http://code.jquery.com/jquery-1.10.1.min.js"
-                           "js/boostrap.min.js"
-                           "js/eval.js")]
+                           "js/bootstrap.min.js")]
         [:body 
           [:div.col-md-7.col-md-offset-2
             [:h1 "todo-repl"]
@@ -26,7 +25,8 @@
                           [:br]
                           (form/submit-button {:id "todoSubmitButton"}
                                               "Eval"))]
-          [:div#display.col-md-7.col-md-offset-2]]))
+          [:div#display.col-md-7.col-md-offset-2]
+          (page/include-js "js/eval.js")]))
 (defn eval-page [x & xs]
   (html [:h1 "Eval"]
         [:h2 x]))
