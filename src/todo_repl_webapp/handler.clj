@@ -32,8 +32,10 @@
         [:h2 x]))
 
 (defroutes app-routes
-  (GET "/" [] (home-page))
-  (POST "/eval" [evalInput] (eval-page evalInput))
+  (GET "/" [] (do (println "get /")
+                  (home-page)))
+  (POST "/eval" [evalInput] (do (println "/eval " evalInput)
+                            (eval-page (load-string evalInput))))
   (route/resources "/")
   (route/not-found "Not Found"))
 
