@@ -6,7 +6,8 @@
             [compojure.route :as route]
             [hiccup.form :as form]
             [hiccup.page :as page]
-            [ring.adapter.jetty :as jetty]))
+            [ring.adapter.jetty :as jetty]
+            [todo-repl.core :as todo]))
 
 (defn home-page [& _]
   (html [:head 
@@ -34,8 +35,13 @@
 (defroutes app-routes
   (GET "/" [] (do (println "get /")
                   (home-page)))
-  (POST "/eval" [evalInput] (do (println "/eval " evalInput)
-                            (eval-page (load-string evalInput))))
+  (POST "/eval" [evalInput]
+    (do (println "/eval " evalInput)
+        (println "evals to: "
+                 (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
+                          (load-string evalInput)))
+        (eval-page (str (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
+                            (load-string evalInput))))))
   (route/resources "/")
   (route/not-found "Not Found"))
 
