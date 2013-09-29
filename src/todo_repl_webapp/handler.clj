@@ -28,6 +28,7 @@
                                               "Eval"))]
           [:div#display.col-md-7.col-md-offset-2]
           (page/include-js "js/eval.js")]))
+
 (defn eval-page [x & xs]
   (html [:h1 "Eval"]
         [:h2 x]))
@@ -38,16 +39,15 @@
   (dosync (alter *tasks-ref* #(cons 
                                 (todo/new-task-better x)
                                 %1))))
-(defn add-to-tasks [x]
-  (dosync (alter *tasks-ref* #(cons x %1))))
 
 (defroutes app-routes
   (GET "/" [] (do (println "get /")
                   (home-page)))
   (POST "/eval" [evalInput]
-    (if (nil? evalInput)
-      (eval-page "nil")
-      (do (println "/eval " evalInput)
+    (do 
+      (println "/eval " evalInput)
+      (if (nil? evalInput)
+        (eval-page "nil")
           (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
             (let [result (load-string evalInput)]
               (println "evals to: " result)
@@ -59,4 +59,6 @@
   (handler/site app-routes))
 
 (defn -main [port]
-  (jetty/run-jetty app-routes {:port (Integer. port) :join? false}))
+  (jetty/run-jetty
+    (handler/site app-routes)
+    {:port (Integer. port) :join? false}))
