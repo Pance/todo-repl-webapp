@@ -7,13 +7,22 @@
             [todo-repl.core :as todo]
             [todo-repl-webapp.views :as views]))
 
-
 (def *tasks-ref* (ref []))
 (defn tasks [] (deref *tasks-ref*))
 (defn add-new-task [x]
   (dosync (alter *tasks-ref* #(cons 
                                 (todo/new-task-better x)
                                 %1))))
+
+;; Initialize some tasks
+(add-new-task {:name "Go get some milk"
+               :context "shopping"
+               :due "tomorrow"})
+(add-new-task {:name "Go get new shoes"
+               :context "shopping"
+               :due "friday"})
+(add-new-task {:name "Clean the kitchen sink"
+               :context "cleaning"})
 
 (defroutes app-routes
   (GET "/" [] (do (println "get /")
@@ -22,11 +31,11 @@
     (do 
       (println "/eval " evalInput)
       (if (nil? evalInput)
-        (views/eval "nil")
+        (views/display "nil")
           (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
             (let [result (load-string evalInput)]
               (println "evals to: " result)
-              (views/eval (str result)))))))
+              (views/display result))))))
   (route/resources "/")
   (route/not-found "Not Found"))
 
