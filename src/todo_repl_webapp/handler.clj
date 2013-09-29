@@ -32,16 +32,24 @@
   (html [:h1 "Eval"]
         [:h2 x]))
 
+(def *tasks-ref* (ref []))
+(defn tasks [] (deref *tasks-ref*))
+(defn add-new-task [x]
+  (dosync (alter *tasks-ref* #(cons 
+                                (todo/new-task-better x)
+                                %1))))
+(defn add-to-tasks [x]
+  (dosync (alter *tasks-ref* #(cons x %1))))
+
 (defroutes app-routes
   (GET "/" [] (do (println "get /")
                   (home-page)))
   (POST "/eval" [evalInput]
     (do (println "/eval " evalInput)
-        (println "evals to: "
-                 (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
-                          (load-string evalInput)))
-        (eval-page (str (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
-                            (load-string evalInput))))))
+        (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
+          (let [result (load-string evalInput)]
+            (println "evals to: " result)
+            (eval-page (str result))))))
   (route/resources "/")
   (route/not-found "Not Found"))
 
