@@ -16,13 +16,36 @@
                           [:post "/eval"]
                           (form/text-area {:class "form-control"}
                                           "evalInput" 
-                                          "blah")
+                                          "(tasks)")
                           [:br]
                           (form/submit-button {:id "todoSubmitButton"}
                                               "Eval"))]
           [:div#display.col-md-7.col-md-offset-2]
           (page/include-js "js/eval.js")]))
 
-(defn eval [x & xs]
-  (core/html [:h1 "Eval"]
-        [:h2 x]))
+(defn task-item
+  "Given a task (map), return a div representing the task"
+  [task-map]
+  (core/html
+    [:div
+      [:div.col-md-7.col-md-offset-1
+        (:name task-map)]]))
+(defn task-line-item
+  "When given a single task (map), return a html table line representing the task"
+  [task-map]
+  (core/html [:tr
+               [:td (task-item task-map)]]))
+
+(defn task-table 
+  "When given a vector of tasks (maps), return an html table representing those tasks"
+  [task-vec]
+  (core/html
+    [:table.table.table-bordered
+      (clojure.string/join
+        (map task-line-item task-vec))]))
+
+(defn display [x & xs]
+  (if-not (empty? x)
+    (core/html [:h2 "list"]
+          [:h3 x]
+            (task-table (vec x)))))
