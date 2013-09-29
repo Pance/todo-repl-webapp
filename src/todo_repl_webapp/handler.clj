@@ -45,11 +45,13 @@
   (GET "/" [] (do (println "get /")
                   (home-page)))
   (POST "/eval" [evalInput]
-    (do (println "/eval " evalInput)
-        (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
-          (let [result (load-string evalInput)]
-            (println "evals to: " result)
-            (eval-page (str result))))))
+    (if (nil? evalInput)
+      (eval-page "nil")
+      (do (println "/eval " evalInput)
+          (binding [*ns* (find-ns 'todo-repl-webapp.handler)]
+            (let [result (load-string evalInput)]
+              (println "evals to: " result)
+              (eval-page (str result)))))))
   (route/resources "/")
   (route/not-found "Not Found"))
 
