@@ -1,3 +1,10 @@
+function drawIndices() {
+  i = 0;
+  $.each($(".taskIndex"), function(index, content) {
+    $(content).text(index);
+    i++;
+  })
+}
 function doEval(e) {
   $.post("/eval", { evalInput: $("#evalInput").val() } ,
                     function(response) {
@@ -5,6 +12,7 @@ function doEval(e) {
   })
     .done(function() {
       $("#evalInput").val("");
+      drawIndices();
     });
 }
 $("#todoSubmitButton").click(function(e) {
@@ -18,9 +26,5 @@ $("#evalInput").keydown(function(e) {
   }
 });
 $(document).ready(function () {
-  i = 0;
-  $.each($(".taskIndex"), function(index, content) {
-    $(content).text(index);
-    i++;
-  })
+  drawIndices();
 });
