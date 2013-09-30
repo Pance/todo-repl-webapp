@@ -18,14 +18,17 @@
   (dosync (alter *tasks-ref* assoc-in [index :status] :complete)))
 
 ;; Initialize some tasks
-(add-new-task {:name "Go get some milk"
-               :context "shopping"
-               :due "tomorrow"})
-(add-new-task {:name "Go get new shoes"
-               :context "shopping"
-               :due "friday"})
-(add-new-task {:name "Clean the kitchen sink"
-               :context "cleaning"})
+(defn init-tasks [& _]
+  (do
+    (add-new-task {:name "Go get some milk"
+                   :context "shopping"
+                   :due "tomorrow"})
+    (add-new-task {:name "Go get new shoes"
+                   :context "shopping"
+                   :due "friday"})
+    (add-new-task {:name "Clean the kitchen sink"
+                   :context "cleaning"})))
+(init-tasks)
 
 (defroutes app-routes
   (GET "/" [] (do (println "get /")
