@@ -7,12 +7,15 @@
             [todo-repl.core :as todo]
             [todo-repl-webapp.views :as views]))
 
-(def *tasks-ref* (ref []))
+(def ^:dynamic *tasks-ref* (ref []))
 (defn tasks [] (deref *tasks-ref*))
 (defn add-new-task [x]
-  (dosync (alter *tasks-ref* #(cons 
-                                (todo/new-task-better x)
-                                %1))))
+  (dosync (alter *tasks-ref* #(conj
+                                %1
+                                (todo/new-task-better x)))))
+(defn complete-task [index]
+  "Sets the :status of task at index to :complete"
+  (dosync (alter *tasks-ref* assoc-in [index :status] :complete)))
 
 ;; Initialize some tasks
 (add-new-task {:name "Go get some milk"
