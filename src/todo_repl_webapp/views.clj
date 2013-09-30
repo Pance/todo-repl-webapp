@@ -3,6 +3,35 @@
             [hiccup.page :as page]
             [hiccup.core :as core]))
 
+(def instructions
+  (core/html
+    [:div.alert.alert-info.col-md-7.col-md-offset-2
+      [:div [:b "Instructions"]]
+      [:br]
+      [:div.col-md-4
+        [:p "To Display Tasks"]
+        [:code "(tasks)"]]
+      [:div.col-md-4
+        [:p "To Reset Tasks"]
+        [:code "(init-tasks)"]]
+      [:div.col-md-4
+        [:p "Tasks look like this"]
+        [:code "{:name name" [:br]
+               ":due date " [:em "(try natural language for the date)"] [:br]
+               ":context context}"]]
+      [:div.col-md-4
+        [:p "To Add a Task"]
+        [:code "(add-new-task" [:br]
+               "{:name \"Build a Rocketship\"" [:br]
+               "               :due \"tomorrow\"" [:br]
+               "               :context \"hobbies\"}"]]
+
+      [:div.col-md-4
+        [:p "To Complete a Task"]
+        [:code "(complete-task " 
+               [:em "index"]
+               ")"]]]))
+
 (defn home [& _]
   (core/html [:head 
           [:title "todo-repl"]
@@ -20,6 +49,7 @@
                           [:br]
                           (form/submit-button {:id "todoSubmitButton"}
                                               "Eval"))]
+          instructions
           [:div#display.col-md-7.col-md-offset-2]
           (page/include-js "js/eval.js")]))
 
