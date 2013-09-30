@@ -20,6 +20,7 @@
 ;; Initialize some tasks
 (defn init-tasks [& _]
   (do
+    (dosync (ref-set *tasks-ref*  []))
     (add-new-task {:name "Go get some milk"
                    :context "shopping"
                    :due "tomorrow"})
