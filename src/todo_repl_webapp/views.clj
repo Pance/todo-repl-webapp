@@ -5,32 +5,34 @@
 
 (def instructions
   (core/html
-    [:div.alert.alert-info.col-md-7.col-md-offset-2
+    [:div.alert.alert-info
       [:div [:b "Instructions"]]
-      [:br]
-      [:div.col-md-4
-        [:p "To Display Tasks"]
-        [:code "(tasks)"]]
-      [:div.col-md-4
-        [:p "To Reset Tasks"]
-        [:code "(init-tasks)"]]
-      [:div.col-md-4
-        [:p "Tasks look like this"]
-        [:code "{:name name" [:br]
-               ":due date " [:em "(try natural language for the date)"] [:br]
-               ":context context}"]]
-      [:div.col-md-4
-        [:p "To Add a Task"]
-        [:code "(add-new-task" [:br]
-               "{:name \"Build a Rocketship\"" [:br]
-               "               :due \"tomorrow\"" [:br]
-               "               :context \"hobbies\"}"]]
+      [:div.row
+        [:div.col-md-4
+          [:p "To Display Tasks"]
+          [:code "(tasks)"]]
+        [:div.col-md-6
+          [:p "To Reset Tasks"]
+          [:code "(init-tasks)"]]]
+      [:div.row
+        [:div.col-md-4
+          [:p "Tasks look like this"]
+          [:code "{:name name" [:br]
+                 "&nbsp; :due " [:em "date (try natural language)"] [:br]
+                 "&nbsp; :context &nbsp;" [:em "context"] [:br]
+                 "}"]]
+        [:div.col-md-4
+          [:p "To Add a Task"]
+          [:code "(add-new-task" [:br]
+                 "&nbsp;&nbsp;{:name \"Build a Rocketship\"" [:br]
+                 "&nbsp;&nbsp;&nbsp;:due \"tomorrow\"" [:br]
+                 "&nbsp;&nbsp;&nbsp;:context \"hobbies\"})"]]
 
-      [:div.col-md-4
-        [:p "To Complete a Task"]
-        [:code "(complete-task " 
-               [:em "index"]
-               ")"]]]))
+        [:div.col-md-4
+          [:p "To Complete a Task"]
+          [:code "(complete-task " 
+                 [:em "index"]
+                 ")"]]]]))
 
 (defn task-item
   "Given a task (map), return a div representing the task"
@@ -76,6 +78,8 @@
         [:body 
           [:div.col-md-7.col-md-offset-2
             [:h1 "todo-repl"]
+            [:div
+              instructions]
             (form/form-to {:id "todoForm"}
                           [:post "/eval"]
                           (form/text-area {:class "form-control"}
@@ -84,7 +88,6 @@
                           [:br]
                           (form/submit-button {:id "todoSubmitButton"}
                                               "Eval"))]
-          instructions
           [:div#display.col-md-7.col-md-offset-2
             (display tasks)]
           (page/include-js "js/eval.js")]))
