@@ -29,7 +29,14 @@
   (core/html
     [:div
       [:div.col-md-7.col-md-offset-1
-        (:name task-map)]]))
+        [:p.lead (:name task-map)]]
+      [:div.col-md-2
+        (if-not (nil? (:context task-map))
+          [:p (:context task-map)])]
+      [:div.col-md-2
+        (if-not (nil? (:due task-map))
+          [:p (:due task-map)])]]))
+
 (defn task-line-item
   "When given a single task (map), return a html table line representing the task"
   [task-map]
@@ -47,5 +54,5 @@
 (defn display [x & xs]
   (if-not (empty? x)
     (core/html [:h2 "list"]
-          [:h3 x]
+          #_[:h3 x]
             (task-table (vec x)))))
