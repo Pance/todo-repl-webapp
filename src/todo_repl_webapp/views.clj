@@ -32,7 +32,7 @@
                [:em "index"]
                ")"]]]))
 
-(defn home [& _]
+(defn home [tasks]
   (core/html [:head 
           [:title "todo-repl"]
           (page/include-css "css/bootstrap.min.css")
@@ -50,7 +50,8 @@
                           (form/submit-button {:id "todoSubmitButton"}
                                               "Eval"))]
           instructions
-          [:div#display.col-md-7.col-md-offset-2]
+          [:div#display.col-md-7.col-md-offset-2
+            (display tasks)]
           (page/include-js "js/eval.js")]))
 
 (defn task-item

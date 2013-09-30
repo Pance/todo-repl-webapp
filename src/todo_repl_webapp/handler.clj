@@ -33,7 +33,7 @@
 
 (defroutes app-routes
   (GET "/" [] (do (println "get /")
-                  (views/home)))
+                  (views/home (tasks))))
   (POST "/eval" [evalInput]
     (do 
       (println "/eval " evalInput)
