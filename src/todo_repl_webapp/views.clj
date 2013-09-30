@@ -38,7 +38,9 @@
   "Given a task (map), return a div representing the task"
   [task-map]
   (core/html
-      [:div.col-md-7.col-md-offset-1
+      [:div.col-md-1
+        [:span.label.label-primary.taskIndex]]
+      [:div.col-md-7
         (if (= :complete (:status task-map))
             [:p.lead.text-muted [:strike (:name task-map)]]
             [:p.lead (:name task-map)])]
