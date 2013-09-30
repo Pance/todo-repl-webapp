@@ -28,7 +28,9 @@
   [task-map]
   (core/html
       [:div.col-md-7.col-md-offset-1
-        [:p.lead (:name task-map)]]
+        (if (= :complete (:status task-map))
+            [:p.lead.text-muted [:strike (:name task-map)]]
+            [:p.lead (:name task-map)])]
       [:div.col-md-2
         (if-not (nil? (:context task-map))
           [:p.text-muted (:context task-map)])]
