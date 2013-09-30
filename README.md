@@ -24,3 +24,35 @@ Then, point your browser at: [http://localhost:8000](http://localhost:8000)
 lein ring server
 ```
 Your browser will open and load the URL to your local-running app
+
+## How to use Todo-Repl
+
+To Display Tasks
+```
+(tasks)
+```
+
+To Reset Tasks
+```
+(init-tasks)
+```
+
+Tasks look like this
+```
+{:name name
+ :due date (try natural language for the date)
+ :context context}
+```
+
+To Add a Task
+```
+(add-new-task
+  {:name "Build a Rocketship"
+   :due "tomorrow"
+   :context "hobbies"}
+```
+
+To Complete a Task
+```
+(complete-task index)
+```
