@@ -14,4 +14,5 @@
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler todo-repl-webapp.handler/app}
   :profiles
-  {:dev {:dependencies [[ring-mock "0.1.5"]]}})
+  {:dev {:dependencies [[ring-mock "0.1.5"]
+                        [com.cemerick/friend "0.2.0"]]}})
