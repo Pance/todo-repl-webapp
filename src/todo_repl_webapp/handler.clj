@@ -10,6 +10,13 @@
             [todo-repl.core :as todo]
             [todo-repl-webapp.views :as views]))
 
+(def users {"root" {:username "root"
+                   :password (credentials/hash-bcrypt "admin-pass")
+                   :roles #{::admin}}
+            "foo" {:username "foo"
+                    :password (credentials/hash-bcrypt "foo-pass")
+                    :roles #{::user}}})
+
 (def ^:dynamic *tasks-ref* (ref []))
 (defn tasks [] (deref *tasks-ref*))
 (defn add-new-task [x]
