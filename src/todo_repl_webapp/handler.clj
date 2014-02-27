@@ -59,6 +59,12 @@
 (def app
   (handler/site app-routes))
 
+(def secured-app
+  (-> app
+    (friend/authenticate {:credential-fn
+                            (partial credentials/bcrypt-credential-fn users)
+                          :workflows [(workflows/interactive-form)]})))
+
 (defn -main [port]
   (jetty/run-jetty
     (handler/site app-routes)
