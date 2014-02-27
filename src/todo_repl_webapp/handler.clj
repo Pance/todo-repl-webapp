@@ -4,6 +4,9 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [ring.adapter.jetty :as jetty]
+            [cemerick.friend :as friend]
+            (cemerick.friend [workflows :as workflows]
+                             [credentials :as credentials])
             [todo-repl.core :as todo]
             [todo-repl-webapp.views :as views]))
 
