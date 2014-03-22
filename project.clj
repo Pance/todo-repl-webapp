@@ -5,6 +5,7 @@
                  [compojure "1.1.5"]
                  [hiccup "1.0.4"]
                  [ring/ring-jetty-adapter "1.1.6"]
+                 [ring/ring-core "1.2.2"]
                  [org.ocpsoft.prettytime/prettytime-nlp "3.0.2.Final"]]
   :uberjar-name "todo-repl-webapp-standalone.jar"
   :main todo-repl-webapp.handler
