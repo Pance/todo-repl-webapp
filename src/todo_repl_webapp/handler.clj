@@ -42,7 +42,7 @@
 (init-tasks)
 
 (defroutes app-routes
-  (GET "/" [] (do (println "get /")
+  (GET "/" [] "todo repl landing page")
                   (views/home (tasks))))
   (POST "/eval" [evalInput]
     (do 
