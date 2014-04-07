@@ -43,8 +43,9 @@
 
 (defroutes app-routes
   (GET "/" [] "todo repl landing page")
-  (GET "/home" [] (do (println "get /")
-                  (views/home (tasks))))
+  (GET "/home" [] (friend/authorize #{::user}
+                    (do (println "get /")
+                        (views/home (tasks)))))
   (POST "/eval" [evalInput]
     (do 
       (println "/eval " evalInput)
