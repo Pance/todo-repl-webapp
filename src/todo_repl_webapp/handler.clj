@@ -53,6 +53,8 @@
             (let [result (load-string evalInput)]
               (println "evals to: " result)
               (views/display result))))))
+  (GET "/admin" request (friend/authorize #{::admin}
+                                          "Admin page"))
   (route/resources "/")
   (route/not-found "Not Found"))
 
