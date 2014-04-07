@@ -67,5 +67,5 @@
 
 (defn -main [port]
   (jetty/run-jetty
-    (handler/site app-routes)
+    secured-app
     {:port (Integer. port) :join? false}))
