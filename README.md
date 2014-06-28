@@ -19,9 +19,9 @@ lein run 8000
 ```
 Then, point your browser at: [http://localhost:8000](http://localhost:8000)
 
-4. *Or*, start an interactive development server
+4. *Or*, start an interactive development server on port 3000
 ```
-lein ring server
+lein ring server-headless
 ```
 Your browser will open and load the URL to your local-running app
 
