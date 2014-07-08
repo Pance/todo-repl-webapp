@@ -2,23 +2,17 @@
   (:require [compojure.core :refer :all]
             [compojure.handler :as handler]
             [compojure.route :as route]
-            [todo-repl-webapp.views :as views]))
-
-(def ^:dynamic *tasks-ref* (ref []))
-(defn tasks [] (deref *tasks-ref*))
+            [todo-repl-webapp.views :as views]
+            [todo-repl-webapp.eval :as e]
+            [todo-repl-webapp.web-repl :as web-repl]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
   (GET "/home" [] (views/home (tasks)))
   (POST "/eval" [evalInput]
-    (do 
-      (println "/eval " evalInput)
-      (if (nil? evalInput)
-        (views/display "nil")
-          (binding [*ns* (find-ns 'todo-repl-webapp.web-repl)]
-            (let [result (load-string evalInput)]
-              (println "evals to: " result)
-              (views/display result))))))
+    (let [eval-result (e/evaluate evalInput)]
+      (println "/eval " evalInput " evals to: " eval-result)
+      (views/display eval-result)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
