@@ -8,7 +8,7 @@
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
-  (GET "/home" [] (views/home (tasks)))
+  (GET "/home" [] (views/home (web-repl/tasks)))
   (POST "/eval" [evalInput]
     (let [eval-result (e/evaluate evalInput)]
       (println "/eval " evalInput " evals to: " eval-result)
