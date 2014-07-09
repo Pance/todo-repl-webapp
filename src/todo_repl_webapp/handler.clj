@@ -28,6 +28,7 @@
 
 (def secured-app
   (-> app
-    (friend/authenticate {:credential-fn
+    (friend/authenticate {:login-uri "/login"
+                          :credential-fn
                             (partial credentials/bcrypt-credential-fn u/users)
                           :workflows [(workflows/interactive-form)]})))
