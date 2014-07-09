@@ -8,7 +8,7 @@
                  [org.ocpsoft.prettytime/prettytime-nlp "3.0.2.Final"]
                  [com.cemerick/friend "0.2.1"]]
   :plugins [[lein-ring "0.8.11"]]
-  :ring {:handler todo-repl-webapp.handler/app}
+  :ring {:handler todo-repl-webapp.handler/secured-app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})
