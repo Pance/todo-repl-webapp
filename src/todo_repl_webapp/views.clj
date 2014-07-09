@@ -1,10 +1,10 @@
 (ns todo-repl-webapp.views
   (:require [hiccup.form :as form]
             [hiccup.page :as page]
-            [hiccup.core :as core]))
+            [hiccup.core :as h]))
 
 (def instructions
-  (core/html
+  (h/html
     [:div.alert.alert-info
       [:div [:b "Instructions"]]
       [:div.row
@@ -37,7 +37,7 @@
 (defn task-item
   "Given a task (map), return a div representing the task"
   [task-map]
-  (core/html
+  (h/html
       [:div.col-md-1
         [:span.label.label-primary.taskIndex]]
       [:div.col-md-7
@@ -54,25 +54,25 @@
 (defn task-line-item
   "When given a single task (map), return a html table line representing the task"
   [task-map]
-  (core/html [:div.panel.panel-default
+  (h/html [:div.panel.panel-default
                [:div.panel-body
                  (task-item task-map)]]))
 
 (defn task-table 
   "When given a vector of tasks (maps), return an html table representing those tasks"
   [task-vec]
-  (core/html
+  (h/html
       (clojure.string/join
         (map task-line-item task-vec))))
 
 (defn display [x & xs]
   (if-not (empty? x)
-    (core/html [:h2 "list"]
+    (h/html [:h2 "list"]
           #_[:h3 x]
             (task-table (vec x)))))
 
 (defn home [tasks]
-  (core/html [:head 
+  (h/html [:head 
           [:title "todo-repl"]
           (page/include-css "css/bootstrap.min.css")
           (page/include-js "http://code.jquery.com/jquery-1.10.1.min.js"
@@ -93,3 +93,16 @@
           [:div#display.col-md-7.col-md-offset-2
             (display tasks)]
           (page/include-js "js/eval.js")]))
+
+(defn login-page []
+  (h/html
+    [:div.row
+     [:div
+      [:h3 "Login"
+       [:div.row
+        (form/form-to
+                      [:post "/login"]
+                      (form/text-field {:class "form-control"}
+                                               "username")
+                      (form/password-field "password")
+                      (form/submit-button "Login!"))]]]]))
