@@ -1,5 +1,5 @@
 (ns todo-repl-webapp.users
-  (cemerick.friend [credentials :as credentials])
+  (:require [cemerick.friend [credentials :as credentials]]))
 
 (def users {"root" {:username "root"
                     :password (credentials/hash-bcrypt "admin-pass")
