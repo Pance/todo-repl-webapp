@@ -19,7 +19,7 @@
       (views/display eval-result)))
   (GET "/admin" request (friend/authorize #{::admin}
                                           "Admin page"))
-  (GET "/login" [] "This is a login page")
+  (GET "/login" [] (views/login-page))
   (route/resources "/")
   (route/not-found "Not Found"))
 
