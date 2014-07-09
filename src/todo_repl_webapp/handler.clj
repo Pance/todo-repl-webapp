@@ -17,6 +17,9 @@
     (let [eval-result (e/evaluate evalInput)]
       (println "/eval " evalInput " evals to: " eval-result)
       (views/display eval-result)))
+  (GET "/admin" request (friend/authorize #{::admin}
+                                          "Admin page"))
+  (GET "/login" [] "This is a login page")
   (route/resources "/")
   (route/not-found "Not Found"))
 
