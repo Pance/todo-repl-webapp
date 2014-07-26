@@ -101,7 +101,7 @@
       [:h3 "Login"
        [:div.row
         (form/form-to
-                      [:post "/login"]
+                      [:post "login"]
                       (form/text-field {:class "form-control"}
                                                "username")
                       (form/password-field "password")
