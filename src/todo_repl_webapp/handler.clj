@@ -1,5 +1,5 @@
 (ns todo-repl-webapp.handler
-  (:require [compojure.core :refer :all]
+  (:require [compojure.core :refer (GET POST defroutes)]
             [compojure.handler :as handler]
             [compojure.route :as route]
             [cemerick.friend :as friend]
@@ -7,7 +7,7 @@
                              [credentials :as credentials])
             [todo-repl-webapp.views :as views]
             [todo-repl-webapp.eval :as e]
-            [todo-repl-webapp.users :as u]
+            [todo-repl-webapp.users :refer (users)]
             [todo-repl-webapp.web-repl :as web-repl]))
 
 (defroutes app-routes
@@ -23,12 +23,11 @@
   (route/resources "/")
   (route/not-found "Not Found"))
 
-(def app
-  (handler/site app-routes))
-
 (def secured-app
-  (-> app
-    (friend/authenticate {:login-uri "/login"
-                          :credential-fn
-                            (partial credentials/bcrypt-credential-fn u/users)
-                          :workflows [(workflows/interactive-form)]})))
+    (handler/site
+      (friend/authenticate
+            app-routes
+            {:login-uri "/login"
+             :credential-fn
+               #(credentials/bcrypt-credential-fn users %)
+             :workflows [(workflows/interactive-form)]})))

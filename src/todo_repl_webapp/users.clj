@@ -7,3 +7,5 @@
             "foo"  {:username "foo"
                     :password (credentials/hash-bcrypt "foo-pass")
                     :roles #{::user}}})
+
+(derive ::admin ::user)
